@@ -1,0 +1,69 @@
+idea 快捷键
+
+ctrl + shift + A   === find action  
+
+ctrl + e    查看最近的文件
+alt +  shift +  C  查看最近编辑的文件
+
+ctrl + shift + backspace  查看之前编辑的文件
+ctrl + alt  ->  / <-   向前查看 向后查看
+ctrl + F11    标记书签  
+  ctrl +数字书签 跳转
+alt +2   出现收藏书签
+
+   alt +shift +  f 收藏  
+
+ctrl +j触发跳转 
+  再按要跳转的字母
+
+alt +1 与 esc  
+
+
+ctrl + n 搜索类 
+
+
+
+ctrl +shift + alt + N 查找函数
+
+ctrl +shift + f  精准查找
+
+
+大小写切换
+
+ctrl +shift + u
+
+
+ctrl + shift + alt + J  选中类似行
+
+ctrl + shift +l 格式化代码
+
+live templates;
+
+postfix;
+
+    name.field
+    sout
+    100.for
+    对象返回.r  
+    对象判断是否为空.nn
+自动创建函数 
+ 
+    alt+ enter
+    list replace
+    字符串format  或者build、
+
+    实现接口
+    单词拼写
+    导包
+重构代码
+    变量重命名  shift + f6    
+    函数重命名   ctrl+ f6
+    抽取变量    ctrl+alt +v
+    抽取静态变量  ctrl+alt +C
+    抽取成员变量  ctrl+alt +F
+    抽取方法参数  ctrl +alt +p
+
+    抽取函数  ctrl +alt +m
+
+
+

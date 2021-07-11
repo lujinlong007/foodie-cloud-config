@@ -1,0 +1,163 @@
+1  创建版本库
+     git init
+  查看配置信息
+     git config user.name
+     git config user.email
+  设置配置信息   
+     git config --global user.name "你的昵称"
+     git config --global user.email "你的邮箱"
+  修改配置信息
+     git config --global --replace-all user.name "your user name"
+     git config --global --replace-all user.email"your user email"  
+2 拉取远端代码
+     首次拉取
+     git clone https://gitee.com/songboy/test201907.git   httptest
+     更新代码
+     git pull
+     记住密码
+     git config –-global credential.helper cache
+     git config credential.helper ‘cache –timeout=3600’
+     永久记住密码
+     git config --global credential.helper store 
+     ssh 拉取
+     git clone git@gitee.com:songboy/test201907.git  sshtest
+     创建公钥
+       ssh-keygen
+     添加公钥到服务器
+     拉取代码
+         git clone git@gitee.com:songboy/test201907.git  sshtest    
+     更新代码
+          git pull
+3 提交代码：如何把修改后的代码提交到远程仓库
+   同步远程代码
+    git pull 
+   检查改动文件
+    git status 
+   撤销文件更改
+    git checkout README.md
+   添加文件到缓存
+     git add index.php                  
+   提交代码
+     git commit . -m “这是备注信息”
+   推送代码
+     git push 
+4 查看代码修改 
+    比较工作区变动
+     git diff 
+    比较暂存区变动
+     git status  && git diff 文件名
+
+    比较暂存区和最近提交的版本
+     git diff --cached  diff.php
+    与指定记录比较 
+      git diff hash值（工作区）
+      git diff --cached hash值     （暂存区）
+      git diff HEAD （与最新版本库比较）  
+      git diff hash值1  hash值2 （比较两个历史记录）
+5 忽略文件权限
+    git config core.filemode false
+    git config --global core.fileMode false（全部忽略）      
+6 忽略指定文件或目录：排除项目配置文件
+   git status 
+   添加 .gitignore 文件  配置忽略项
+   检查忽略规则  git check-ignore -v 文件名    
+   强制添加文件 git add -f .DS_Store
+7 分支管理：掌握快速切换分支和新建分支能力
+   查看本地分支
+     git branch 
+   查看所有分支
+     git branch -a 
+   新建分支
+     git checkout master （切换远程分支）       
+     git checkout -b test  （新建不存在的分支）
+     推送远程分支
+       git push --set-upstream origin test
+   合并分支
+      git merge test
+   查看合并记录
+      git log
+   删除分支
+      git branch -d test    （普通删除）
+      git branch -D test      (强制删除)
+ 8文件忽略进阶
+     忽略文件夹 所以一般我们会在.gitignore文件添加路径忽略它     
+     设置忽略排除 
+     设置反向排除 !/test/index.php
+     忽略已存在的文件 git rm --cached test2/index.php
+     忽略已存在的文件夹 git rm -r --cached test3/
+     强制添加 git add -f test3 
+ 9 比较分支差异 
+   比较分支差异：展示两个分支的差异部分    
+     git checkout -b dev
+     git diff master dev  --stat （查看代码差异）
+     git diff master dev index.php  （查看具体文件差异）
+     git diff master dev （显示文件全部修改）
+     git log dev ^master （查看新纪录）         
+     git log branch1...branch2 （单纯比较差异）
+     git log --left-right develop...test （查看各记录存在那些分支上）
+  10 reset命令：将仓库记录和恢复指定历史位置
+      git reset HEAD^ 撤销最新提交记录
+      git log && git status 
+      git reset hash值 （指定回滚到位置）   
+  11 删除过期分支：清理无意义的分支数据
+     清理远程分支 
+       git branch -a
+       git push origin --delete dev（远程删除）    
+     清理本地分支 
+       git checkout -b test1
+       git branch -a
+       git push --set-upstream origin test1
+       git remote show origin
+       git push origin --delete test1   （删除远程分支）
+
+       git remote prune origin （对齐远程分支）
+
+       git branch -vv （查看失联分支）
+
+       git branch -d test1 （强制删除分支）
+
+  12 配置多个远端仓库：把代码推送到不同的服务器     
+     查看远程仓库 
+      git remote -v
+    添加多个仓库
+      git remote add github https://github.com/78778443/gittest.git
+      推送到 github 
+      git push github
+      指定推送窗口
+      git push -u github 
+    一个仓库多个地址 
+      git remote set-url --add origin https://github.com/78778443/gittest.git
+      git remote -v
+      git push  
+  13 远端覆盖本地：把远端代码覆盖本地    
+      git reset --hard origin/master
+  14 恢复已删除的分支：恢复误删除的分支数据
+       在使用 Git 的过程中，有时可能会有一些错误操作，造成分支被删除或者丢失，比如 branch -d test，如果我们想恢复此分支，可以通过 reflog 来进行恢复，不过前提是，这个 test 分支的信息没有被 git gc 清除。
+
+       一般情况下，除非手动执行了 git gc 命令，否则 gc 对那些无用的 object 会保留很长时间后才清除的，reflog 是 Git 提供的一个内部工具，用于记录对 Git 仓库进行的各种操作，可以使用 git reflog show 所有的管理类操作日志。    
+
+
+       git reflog show 
+       git checkout -b  branch  commitId
+
+       如果你不小心使用 git reset 回滚了提交记录，想找回之前的提交记录也是可以的；可以 git reflog 查看操作历史，找到执行 git reset 命令之前 commitid，然后 git reset --hard 到那个 commitid 即可
+
+
+       有时候，我们在某个版本中删除了文件，后来又突然发现需要这个文件，也是可以恢复的；恢复之前首先确定要恢复的文件在哪一个版本（commit）中，假设那个版本号是： 7a4312sd，文件路径为 abc.php 那么参考命如下：
+
+       git checkout 7a4312sd abc.php
+
+   15 两个历史版本对比 
+
+        git log
+         git diff 4c64ecd48d7ac2b32b35ece080a5ae1f7256f9d9 6d8feb147973711d08211f953f3d7c463ee1e88f 
+   16  单独回滚代码：记录不变只回滚代码      
+        git revert
+        
+        git reset --hard origin/master
+
+        revert 可以回滚指定的版本的代码，回滚代码后会生成一个新的版本号，记录下整个版本变动流程，就可以用 revert 这种操作方法
+
+        git reset 命令会改变之前的版本记录，可能会导致不能提交到远程仓库；
+        git revert命令只会撤销某个版本的代码，然后在当前分支增加一条版本新记录；
+        git revert 只会撤销指定版本的代码，而不是指定版本后的所有版本。
